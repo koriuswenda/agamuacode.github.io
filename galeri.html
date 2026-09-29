@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Galeri – AGAMUA CODE</title>
 <meta name="description" content="Foto kegiatan, acara, dan proyek anggota AGAMUA CODE.">
+<meta property="og:title" content="Galeri – AGAMUA CODE">
+<meta property="og:image" content="logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&family=JetBrains+Mono:wght@500&display=swap">
 <link rel="icon" type="image/png" href="favicon.png">
@@ -12,14 +14,51 @@
 </head>
 <body data-page="galeri">
 <main>
-  <div class="page-head"><h1>Galeri</h1><p class="lead">Kelas, acara, dan proyek yang dibuat anggota komunitas. Klik untuk melihat detail.</p></div>
-  <section class="section">
-    <div class="slider-wrap"><div class="slider" id="slider"></div></div>
-    <div class="filters" id="filters"></div>
-    <div class="gallery" id="gallery"></div>
+  <div class="page-head"><h1>Galeri</h1><p class="lead">Kelas, acara, dan proyek yang dibuat anggota komunitas. Klik foto untuk melihat detail lengkapnya.</p></div>
+
+  <section class="gal" aria-label="Galeri AGAMUA CODE">
+    <div class="gal-bar">
+      <div class="chips" id="gal-chips" role="group" aria-label="Filter kategori"></div>
+      <div class="gal-search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+        <input id="gal-q" type="search" placeholder="Cari kegiatan, proyek, tag..." aria-label="Cari di galeri" autocomplete="off">
+      </div>
+    </div>
+    <p class="gal-count" id="gal-count" role="status" aria-live="polite"></p>
+    <div class="gal-grid" id="gal-grid" aria-busy="true"><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div></div>
+    <p class="gal-empty" id="gal-empty" hidden>Tidak ada hasil yang cocok. Coba kata kunci atau kategori lain.</p>
   </section>
 </main>
-<div class="lightbox" id="lightbox" hidden><button aria-label="Tutup">✕</button><div id="lb-content"></div></div>
+
+<!-- Jendela detail galeri -->
+<dialog class="viewer" id="viewer" aria-label="Detail galeri">
+  <div class="v-media">
+    <div class="v-stage" id="v-stage"></div>
+    <button class="v-nav v-prev" type="button" aria-label="Foto sebelumnya">‹</button>
+    <button class="v-nav v-next" type="button" aria-label="Foto berikutnya">›</button>
+  </div>
+  <aside class="v-info">
+    <div class="v-top">
+      <span class="v-count" id="v-count"></span>
+      <button class="v-close" type="button" aria-label="Tutup detail" autofocus>✕</button>
+    </div>
+    <p class="level" id="v-cat"></p>
+    <h2 id="v-title"></h2>
+    <div class="v-desc" id="v-desc"></div>
+    <dl class="v-meta" id="v-meta"></dl>
+    <div class="v-tags" id="v-tags"></div>
+    <div class="v-actions">
+      <button class="btn primary" id="v-copy" type="button">Salin tautan</button>
+      <a class="btn" id="v-open" target="_blank" rel="noopener">Buka gambar</a>
+    </div>
+    <div class="v-rel-wrap" id="v-rel-wrap">
+      <h3>Lainnya di kategori ini</h3>
+      <div class="v-rel" id="v-rel"></div>
+    </div>
+  </aside>
+</dialog>
+
 <script src="script.js"></script>
+<script src="galeri.js"></script>
 </body>
 </html>

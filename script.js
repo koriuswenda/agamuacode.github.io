@@ -10,7 +10,7 @@ async function api(path, opts) {
 const fail = (el, msg = 'Data belum bisa dimuat. Muat ulang halaman.') => { el.innerHTML = `<p class="error">${msg}</p>`; };
 
 /* Layout bersama: header & footer disisipkan di setiap halaman */
-const PAGES = [['index.html', 'Home', 'home'], ['tentang.html', 'Tentang Kami', 'tentang'], ['programkursus.html', 'Program Kursus', 'kursus'], ['galeri.html', 'Galeri', 'galeri'], ['kontak.html', 'Kontak', 'kontak']];
+const PAGES = [['index.html', 'Home', 'home'], ['tentang.html', 'Tentang Kami', 'tentang'], ['programkursus.html', 'Program Kursus', 'kursus'], ['playlist.html', 'Video', 'playlist'], ['galeri.html', 'Galeri', 'galeri'], ['kontak.html', 'Kontak', 'kontak']];
 const cur = document.body.dataset.page;
 document.body.insertAdjacentHTML('afterbegin', `<header class="nav"><a href="index.html" class="logo"><img src="logo.png" width="38" height="38" alt="">agamua<span>.code</span></a>
 <button class="burger" id="burger" aria-label="Buka menu" aria-expanded="false">☰</button>
@@ -78,6 +78,33 @@ async function loadVideos() {
     box.innerHTML = list.map((x) => `<button class="vcard" data-id="${x.id}"><span class="thumb" style="--h:${x.hue}">${ico(x.icon)}<span class="level">${esc(x.level)}</span><i class="playbtn">${ico('play')}</i></span><b>${esc(x.title)}</b><small>${esc(x.course)}</small></button>`).join('');
     box.onclick = (e) => { const b = e.target.closest('.vcard'); if (b) openVideo(list.find((x) => String(x.id) === b.dataset.id)); };
   } catch { fail(box); }
+}
+
+/* Video belajar di Home: pemutar utama + daftar putar teks (tanpa kartu) */
+async function loadVideoMain() {
+  const list = $('#video-list'); if (!list) return;
+  const screen = $('#video-screen'), title = $('#video-title'), meta = $('#video-meta');
+  try {
+    const vids = await api('videos');
+    if (!vids.length) { fail(list, 'Belum ada video.'); return; }
+    const show = (v, autoplay) => {
+      title.textContent = v.title;
+      meta.textContent = `${v.course} · ${v.level}`;
+      screen.innerHTML = v.youtube
+        ? `<iframe src="https://www.youtube-nocookie.com/embed/${esc(v.youtube)}${autoplay ? '?autoplay=1' : ''}" allow="autoplay; fullscreen" allowfullscreen title="${esc(v.title)}"></iframe>`
+        : `<video controls${autoplay ? ' autoplay' : ''} playsinline preload="metadata" src="${esc(v.src)}"></video>`;
+      const vid = $('video', screen);
+      if (vid) vid.addEventListener('error', () => { screen.innerHTML = `<p class="vmiss">Video "${esc(v.title)}" belum tersedia. Simpan file di <code>${esc(v.src)}</code>, lalu coba lagi.</p>`; });
+      list.querySelectorAll('button').forEach((b) => b.setAttribute('aria-current', b.dataset.id === String(v.id)));
+    };
+    list.innerHTML = vids.map((v, i) => `<li><button type="button" data-id="${v.id}"><span class="vnum">${String(i + 1).padStart(2, '0')}</span><span class="vtxt"><b>${esc(v.title)}</b><small>${esc(v.course)} · ${esc(v.level)}</small></span></button></li>`).join('');
+    list.onclick = (e) => {
+      const b = e.target.closest('button'); if (!b) return;
+      show(vids.find((x) => String(x.id) === b.dataset.id), true);
+      screen.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    };
+    show(vids[0], false);
+  } catch { fail(list); }
 }
 
 /* Home */
@@ -172,34 +199,7 @@ async function loadSlides() {
   try { initSlider(box, await api('slides')); } catch { box.closest('.slider-wrap').remove(); }
 }
 
-/* Galeri */
-let items = [];
-async function loadGallery() {
-  try {
-    items = await api('gallery');
-    const cats = ['Semua', ...new Set(items.map((i) => i.category))];
-    $('#filters').innerHTML = cats.map((c, i) => `<button type="button" aria-pressed="${i === 0}">${esc(c)}</button>`).join('');
-    $('#gallery').innerHTML = items.map((i) => `
-      <button class="tile${i.thumb ? ' has-img' : ''}" style="--h:${i.hue}" data-id="${i.id}" data-cat="${esc(i.category)}">${i.thumb ? `<img src="${esc(i.thumb)}" alt="" loading="lazy">` : ''}<span>${esc(i.title)}<small>${esc(i.category)}</small></span></button>`).join('');
-  } catch { fail($('#gallery')); }
-}
-$('#filters')?.addEventListener('click', (e) => {
-  const b = e.target.closest('button'); if (!b) return;
-  $('#filters').querySelectorAll('button').forEach((x) => x.setAttribute('aria-pressed', x === b));
-  document.querySelectorAll('.tile').forEach((t) => { t.hidden = b.textContent !== 'Semua' && t.dataset.cat !== b.textContent; });
-});
-const lb = $('#lightbox');
-let lastFocus;
-const closeLb = () => { lb.hidden = true; lastFocus && lastFocus.focus(); };
-$('#gallery')?.addEventListener('click', (e) => {
-  const t = e.target.closest('.tile'); if (!t) return;
-  const it = items.find((i) => String(i.id) === t.dataset.id);
-  lastFocus = t;
-  $('#lb-content').innerHTML = `${it.image ? `<img src="${esc(it.image)}" alt="${esc(it.title)}">` : `<div class="art" style="--h:${it.hue}"></div>`}<div class="txt"><h3>${esc(it.title)}</h3><p>${esc(it.description)}</p></div>`;
-  lb.hidden = false; $('button', lb).focus();
-});
-lb?.addEventListener('click', (e) => { if (e.target === lb || e.target.matches('button')) closeLb(); });
-document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && lb && !lb.hidden) closeLb(); });
+/* Galeri: lihat galeri.js  |  Video playlist: lihat playlist.js */
 
 /* Kontak */
 async function loadContact() {
@@ -225,11 +225,52 @@ form?.addEventListener('submit', async (e) => {
   btn.disabled = false; btn.textContent = 'Kirim pesan';
 });
 
+/* Banner utama Home: slideshow layar penuh (video otomatis dipakai bila file ada) */
+async function initBanner() {
+  const box = $('#banner'); if (!box) return;
+  const slides = [...box.querySelectorAll('.bn-slide')], dotsBox = $('.bn-dots', box), pp = $('.bn-pp', box);
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  dotsBox.innerHTML = slides.map((_, k) => `<button type="button" aria-label="Tampilkan slide ${k + 1}"></button>`).join('');
+  const dots = [...dotsBox.children];
+  let i = 0, timer, paused = reduce, focused = false;
+  const vid = () => $('.bn-video', box);
+  const syncVideo = () => { const v = vid(); if (!v) return; if (i === 0 && !paused) v.play().catch(() => {}); else v.pause(); };
+  const go = (n) => {
+    i = (n + slides.length) % slides.length;
+    slides.forEach((s, k) => { const on = k === i; s.classList.toggle('active', on); s.setAttribute('aria-hidden', !on); s.inert = !on; });
+    dots.forEach((d, k) => d.setAttribute('aria-current', k === i));
+    syncVideo();
+  };
+  const run = () => { clearInterval(timer); if (!paused && !focused && !document.hidden) timer = setInterval(() => go(i + 1), 7000); };
+  const step = (n) => { go(n); run(); };
+  const label = () => { pp.textContent = paused ? '▶' : '❚❚'; pp.setAttribute('aria-label', paused ? 'Putar slideshow' : 'Jeda slideshow'); box.classList.toggle('paused', paused); };
+  $('.bn-prev', box).onclick = () => step(i - 1);
+  $('.bn-next', box).onclick = () => step(i + 1);
+  dots.forEach((d, k) => { d.onclick = () => step(k); });
+  pp.onclick = () => { paused = !paused; label(); syncVideo(); run(); };
+  box.addEventListener('focusin', () => { focused = true; run(); });
+  box.addEventListener('focusout', () => { focused = false; run(); });
+  box.addEventListener('keydown', (e) => { if (e.key === 'ArrowLeft') step(i - 1); if (e.key === 'ArrowRight') step(i + 1); });
+  let x0 = null;
+  box.addEventListener('pointerdown', (e) => { x0 = e.clientX; });
+  box.addEventListener('pointerup', (e) => { if (x0 !== null && Math.abs(e.clientX - x0) > 50) step(i + (e.clientX < x0 ? 1 : -1)); x0 = null; });
+  document.addEventListener('visibilitychange', run);
+  label(); go(0); run();
+  try { /* video latar untuk slide pertama, hanya bila file benar-benar ada */
+    const d = await api('home');
+    if (!d.video || !(await fetch(d.video, { method: 'HEAD' })).ok) return;
+    const v = document.createElement('video');
+    v.className = 'bn-video'; v.src = d.video; v.muted = true; v.loop = true; v.playsInline = true; v.setAttribute('aria-hidden', 'true');
+    $('.bn-bg', slides[0]).append(v); syncVideo();
+  } catch { /* tetap pakai latar ilustrasi */ }
+}
+
+initBanner();
 initStage();
 loadVideos();
+loadVideoMain();
 if ($('#slider')) loadSlides();
 if ($('#stats')) loadHome();
 if ($('#about-desc')) loadAbout();
 loadCourses();
-if ($('#gallery')) loadGallery();
 if ($('#contact-info')) loadContact();

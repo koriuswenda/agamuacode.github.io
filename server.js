@@ -70,6 +70,17 @@ const DB = {
   ],
 };
 
+// Data tambahan galeri (opsional). Kolom yang bisa kamu isi per item galeri:
+//   date: '2026-03-14'   place: 'Jayapura'   detail: 'Cerita lengkap kegiatan...'
+// Kolom yang kosong otomatis disembunyikan di jendela detail galeri.
+const TAGS = {
+  9: ['Founder', 'STTB Papua', 'Developer'], 10: ['Founder', 'Pengajar'], 11: ['Poster', 'Diskusi'],
+  1: ['Dasar Web', '40 peserta'], 2: ['Git', 'Branch', 'Pull request'], 3: ['Hackathon', 'UMKM', '12 tim'],
+  4: ['Demo', 'Program kolaborasi'], 5: ['JavaScript', 'Situs web'], 6: ['Node.js', 'SQLite'],
+  7: ['Komunitas', 'Bulanan'], 8: ['Review kode', 'Mentor'],
+};
+DB.gallery.forEach((g) => { g.tags = TAGS[g.id] || [g.category]; });
+
 const MIME = { '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.json': 'application/json', '.svg': 'image/svg+xml', '.png': 'image/png', '.jpg': 'image/jpeg', '.ico': 'image/x-icon', '.mp4': 'video/mp4', '.webm': 'video/webm' };
 const json = (res, code, body) => { res.writeHead(code, { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store' }); res.end(JSON.stringify(body)); };
 

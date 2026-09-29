@@ -14,29 +14,87 @@
 </head>
 <body data-page="home">
 <main>
-  <section class="intro" aria-label="Video pembuka AGAMUA CODE">
-    <div class="stage" id="stage">
-      <svg class="scene" viewBox="0 0 1200 520" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-        <defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0a0d4a"/><stop offset=".55" stop-color="#1f62d6"/><stop offset="1" stop-color="#9cc8ff"/></linearGradient></defs>
-        <rect width="1200" height="520" fill="url(#sky)"/>
-        <circle class="sun" cx="930" cy="150" r="54" fill="#ffd21f"/>
-        <g class="cloud c1" fill="#fff" opacity=".85"><ellipse cx="200" cy="120" rx="70" ry="18"/><ellipse cx="245" cy="106" rx="46" ry="16"/></g>
-        <g class="cloud c2" fill="#fff" opacity=".7"><ellipse cx="700" cy="70" rx="80" ry="16"/><ellipse cx="750" cy="58" rx="44" ry="14"/></g>
-        <path d="M0 390 L150 270 L230 320 L380 190 L470 270 L620 130 L720 250 L860 180 L980 290 L1100 220 L1200 310 V520 H0Z" fill="#3a63c8"/>
-        <path d="M620 130 L568 188 L598 178 L620 204 L650 178 L682 190Z M380 190 L346 232 L370 224 L386 242 L406 222 L422 234Z M860 180 L832 214 L852 208 L862 222 L878 206 L892 214Z" fill="#fff" opacity=".92"/>
-        <path d="M0 445 L200 335 L330 395 L520 305 L700 405 L900 315 L1050 395 L1200 345 V520 H0Z" fill="#17399b"/>
-        <path d="M0 490 Q300 450 600 485 T1200 470 V520 H0Z" fill="#0a0d4a"/>
-        <path d="M235 478 L270 440 L305 478Z" fill="#e2bd72"/><rect x="243" y="478" width="54" height="22" fill="#8a5a2b"/>
-        <g fill="#ffd21f" font-family="JetBrains Mono,monospace" font-weight="500"><text class="g1" x="980" y="330" font-size="34">&lt;/&gt;</text><text class="g2" x="1090" y="240" font-size="26">{ }</text><text class="g3" x="80" y="300" font-size="28">JS</text><text class="g4" x="1010" y="420" font-size="22">HTML</text></g>
-      </svg>
-      <img class="stage-logo" src="logo.png" alt="" width="120" height="120">
-      <div class="stage-copy">
-        <p class="chip">Pegunungan Jayawijaya, Papua</p>
-        <p class="stage-title">Belajar coding dari kaki pegunungan Jayawijaya.</p>
-        <div class="cta"><a class="btn primary" href="#video">Tonton video belajar</a><button class="btn glass" id="stage-pp" type="button" aria-pressed="false">❚❚ Jeda</button></div>
+
+  <!-- Bentuk gunung dipakai bersama oleh semua slide banner -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <defs>
+      <g id="bn-mountains">
+        <path d="M0 390 L150 270 L230 320 L380 190 L470 270 L620 130 L720 250 L860 180 L980 290 L1100 220 L1200 310 V520 H0Z" style="fill:var(--m1)"/>
+        <path d="M620 130 L568 188 L598 178 L620 204 L650 178 L682 190Z M380 190 L346 232 L370 224 L386 242 L406 222 L422 234Z M860 180 L832 214 L852 208 L862 222 L878 206 L892 214Z" style="fill:var(--snow);opacity:.92"/>
+        <path d="M0 445 L200 335 L330 395 L520 305 L700 405 L900 315 L1050 395 L1200 345 V520 H0Z" style="fill:var(--m2)"/>
+        <path d="M0 490 Q300 450 600 485 T1200 470 V520 H0Z" style="fill:var(--m3)"/>
+        <path d="M235 478 L270 440 L305 478Z" fill="#e2bd72"/>
+        <rect x="243" y="478" width="54" height="22" fill="#8a5a2b"/>
+      </g>
+    </defs>
+  </svg>
+
+  <!-- BANNER UTAMA: slideshow layar penuh, langsung di halaman -->
+  <section class="banner" id="banner" aria-roledescription="carousel" aria-label="Banner utama AGAMUA CODE" tabindex="-1">
+
+    <article class="bn-slide bn-1 active" aria-roledescription="slide" aria-label="1 dari 3">
+      <div class="bn-bg" aria-hidden="true">
+        <i class="bn-sun"></i>
+        <svg class="bn-scene" viewBox="0 0 1200 520" preserveAspectRatio="xMidYMax slice"><use href="#bn-mountains"/></svg>
+        <span class="bn-glyph g1">&lt;/&gt;</span><span class="bn-glyph g2">JS</span><span class="bn-glyph g3">{ }</span>
       </div>
-    </div>
+      <div class="bn-overlay" aria-hidden="true"></div>
+      <div class="bn-copy">
+        <p class="bn-chip">Pegunungan Jayawijaya, Papua</p>
+        <p class="bn-kicker">Selamat datang di komunitas AGAMUA CODE</p>
+        <h2 class="bn-title">Belajar coding <span>dari Jayawijaya</span></h2>
+        <p class="bn-text">Belajar teknologi, membangun keterampilan, dan menghasilkan karya digital bersama AGAMUA CODE.</p>
+        <div class="cta bn-actions">
+          <a class="btn primary" href="#video">Tonton video belajar</a>
+          <a class="btn glass" href="programkursus.html">Lihat program</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="bn-slide bn-2" aria-roledescription="slide" aria-label="2 dari 3">
+      <div class="bn-bg" aria-hidden="true">
+        <i class="bn-sun"></i>
+        <svg class="bn-scene" viewBox="0 0 1200 520" preserveAspectRatio="xMidYMax slice"><use href="#bn-mountains"/></svg>
+        <span class="bn-glyph g1">HTML</span><span class="bn-glyph g2">CSS</span><span class="bn-glyph g3">&lt;/&gt;</span>
+      </div>
+      <div class="bn-overlay" aria-hidden="true"></div>
+      <div class="bn-copy">
+        <p class="bn-chip">Belajar • Berbagi • Berkarya</p>
+        <p class="bn-kicker">Dari pemula menjadi pembuat karya</p>
+        <h2 class="bn-title">Dari nol <span>jadi karya digital</span></h2>
+        <p class="bn-text">Mulai dari HTML, CSS, JavaScript, hingga membangun aplikasi dan proyek bersama komunitas.</p>
+        <div class="cta bn-actions">
+          <a class="btn primary" href="programkursus.html">Mulai belajar</a>
+          <a class="btn glass" href="tentang.html">Tentang kami</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="bn-slide bn-3" aria-roledescription="slide" aria-label="3 dari 3">
+      <div class="bn-bg" aria-hidden="true">
+        <i class="bn-sun"></i>
+        <svg class="bn-scene" viewBox="0 0 1200 520" preserveAspectRatio="xMidYMax slice"><use href="#bn-mountains"/></svg>
+        <span class="bn-glyph g1">Git</span><span class="bn-glyph g2">API</span><span class="bn-glyph g3">Node</span>
+      </div>
+      <div class="bn-overlay" aria-hidden="true"></div>
+      <div class="bn-copy">
+        <p class="bn-chip">Komunitas Coding Papua</p>
+        <p class="bn-kicker">Teknologi untuk masa depan</p>
+        <h2 class="bn-title">Teknologi <span>membuka peluang</span></h2>
+        <p class="bn-text">Bergabung bersama komunitas untuk belajar, berdiskusi, membuat proyek, dan berkembang bersama.</p>
+        <div class="cta bn-actions">
+          <a class="btn primary" href="kontak.html">Gabung komunitas</a>
+          <a class="btn glass" href="#video">Video belajar</a>
+        </div>
+      </div>
+    </article>
+
+    <button class="bn-arrow bn-prev" type="button" aria-label="Slide sebelumnya">‹</button>
+    <button class="bn-arrow bn-next" type="button" aria-label="Slide berikutnya">›</button>
+    <div class="bn-dots" aria-label="Pilih slide"></div>
+    <button class="bn-pp" type="button" aria-label="Jeda slideshow">❚❚</button>
   </section>
+
   <section class="hero">
     <div class="hero-text">
       <h1>Belajar coding bareng, dari nol sampai jadi karya.</h1>

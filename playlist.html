@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Video Playlist – AGAMUA CODE</title>
+<meta name="description" content="Playlist video belajar coding AGAMUA CODE: tonton berurutan, lanjut otomatis, dan pantau progresmu.">
+<meta property="og:title" content="Video Playlist – AGAMUA CODE">
+<meta property="og:image" content="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-page="playlist">
+<main>
+  <div class="page-head"><h1>Video Playlist</h1><p class="lead">Tonton materi secara berurutan. Video berikutnya bisa diputar otomatis, dan progresmu tersimpan di perangkat ini.</p></div>
+
+  <section class="pl" aria-label="Pemutar video">
+    <div class="pl-stage">
+      <div class="pl-screen" id="pl-screen" aria-live="polite"><div class="skeleton" style="height:100%"></div></div>
+      <div class="pl-now">
+        <div>
+          <p class="pl-kicker" id="pl-kicker"></p>
+          <h2 id="pl-title">Memuat...</h2>
+          <p class="pl-sub" id="pl-sub"></p>
+        </div>
+        <div class="pl-ctrls">
+          <button type="button" id="pl-prev" aria-label="Video sebelumnya">⏮</button>
+          <button type="button" id="pl-next" aria-label="Video berikutnya">⏭</button>
+          <button type="button" class="pl-switch" id="pl-auto" role="switch" aria-checked="true"><i aria-hidden="true"></i>Putar otomatis</button>
+        </div>
+      </div>
+      <div class="pl-about">
+        <p id="pl-about"></p>
+        <p><a class="btn" id="pl-course" href="programkursus.html" hidden>Lihat kelas terkait</a></p>
+      </div>
+    </div>
+
+    <aside class="pl-side" aria-label="Daftar video">
+      <div class="pl-tools">
+        <div class="gal-search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+          <input id="pl-q" type="search" placeholder="Cari video..." aria-label="Cari video" autocomplete="off">
+        </div>
+        <div class="chips" id="pl-chips" role="group" aria-label="Filter kelas"></div>
+        <div class="pl-progress">
+          <span id="pl-prog-text" role="status"></span>
+          <button type="button" id="pl-reset" hidden>Hapus riwayat</button>
+          <div class="pl-bar" aria-hidden="true"><b id="pl-bar"></b></div>
+        </div>
+      </div>
+      <ol class="pl-list" id="pl-list"></ol>
+    </aside>
+  </section>
+</main>
+<script src="script.js"></script>
+<script src="playlist.js"></script>
+</body>
+</html>
