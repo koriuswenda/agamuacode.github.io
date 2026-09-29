@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Komunitas Coding – AGAMUA CODE</title>
+<meta name="description" content="AGAMUA CODE adalah komunitas coding tempat belajar, berbagi, dan membangun proyek bersama.">
+<meta property="og:title" content="AGAMUA CODE – Komunitas Coding">
+<meta property="og:image" content="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-page="home">
+<main>
+  <section class="intro" aria-label="Video pembuka AGAMUA CODE">
+    <div class="stage" id="stage">
+      <svg class="scene" viewBox="0 0 1200 520" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0a0d4a"/><stop offset=".55" stop-color="#1f62d6"/><stop offset="1" stop-color="#9cc8ff"/></linearGradient></defs>
+        <rect width="1200" height="520" fill="url(#sky)"/>
+        <circle class="sun" cx="930" cy="150" r="54" fill="#ffd21f"/>
+        <g class="cloud c1" fill="#fff" opacity=".85"><ellipse cx="200" cy="120" rx="70" ry="18"/><ellipse cx="245" cy="106" rx="46" ry="16"/></g>
+        <g class="cloud c2" fill="#fff" opacity=".7"><ellipse cx="700" cy="70" rx="80" ry="16"/><ellipse cx="750" cy="58" rx="44" ry="14"/></g>
+        <path d="M0 390 L150 270 L230 320 L380 190 L470 270 L620 130 L720 250 L860 180 L980 290 L1100 220 L1200 310 V520 H0Z" fill="#3a63c8"/>
+        <path d="M620 130 L568 188 L598 178 L620 204 L650 178 L682 190Z M380 190 L346 232 L370 224 L386 242 L406 222 L422 234Z M860 180 L832 214 L852 208 L862 222 L878 206 L892 214Z" fill="#fff" opacity=".92"/>
+        <path d="M0 445 L200 335 L330 395 L520 305 L700 405 L900 315 L1050 395 L1200 345 V520 H0Z" fill="#17399b"/>
+        <path d="M0 490 Q300 450 600 485 T1200 470 V520 H0Z" fill="#0a0d4a"/>
+        <path d="M235 478 L270 440 L305 478Z" fill="#e2bd72"/><rect x="243" y="478" width="54" height="22" fill="#8a5a2b"/>
+        <g fill="#ffd21f" font-family="JetBrains Mono,monospace" font-weight="500"><text class="g1" x="980" y="330" font-size="34">&lt;/&gt;</text><text class="g2" x="1090" y="240" font-size="26">{ }</text><text class="g3" x="80" y="300" font-size="28">JS</text><text class="g4" x="1010" y="420" font-size="22">HTML</text></g>
+      </svg>
+      <img class="stage-logo" src="logo.png" alt="" width="120" height="120">
+      <div class="stage-copy">
+        <p class="chip">Pegunungan Jayawijaya, Papua</p>
+        <p class="stage-title">Belajar coding dari kaki pegunungan Jayawijaya.</p>
+        <div class="cta"><a class="btn primary" href="#video">Tonton video belajar</a><button class="btn glass" id="stage-pp" type="button" aria-pressed="false">❚❚ Jeda</button></div>
+      </div>
+    </div>
+  </section>
+  <section class="hero">
+    <div class="hero-text">
+      <h1>Belajar coding bareng, dari nol sampai jadi karya.</h1>
+      <p>AGAMUA CODE adalah komunitas coding yang membantu pemula dan developer muda membangun keterampilan lewat kelas, proyek nyata, dan mentor yang mau menemani.</p>
+      <div class="cta">
+        <a href="programkursus.html" class="btn primary">Lihat program kursus</a>
+        <a href="kontak.html" class="btn">Gabung komunitas</a>
+      </div>
+      <ul class="stats" id="stats"></ul>
+    </div>
+    <div class="hero-visual">
+      <img class="hero-logo" src="logo.png" width="512" height="512" alt="Logo AGAMUA CODE">
+    <div class="editor" aria-hidden="true">
+      <div class="editor-bar"><i></i><i></i><i></i><b>agamua.js</b></div>
+      <pre id="typed"></pre>
+    </div>
+    </div>
+  </section>
+  <section class="section">
+    <h2 class="center">Sorotan komunitas</h2>
+    <div class="slider-wrap"><div class="slider" id="slider"></div></div>
+  </section>
+  <section class="section alt">
+    <h2>Program unggulan</h2>
+    <p class="lead">Tiga kelas yang paling banyak diambil anggota baru.</p>
+    <div class="grid" id="courses" data-limit="3"></div>
+    <p class="more"><a class="btn" href="programkursus.html">Lihat semua program</a></p>
+  </section>
+  <section class="section" id="video">
+    <h2>Video belajar</h2>
+    <p class="lead">Tonton materi singkat, lalu ikuti langkahnya di komputermu.</p>
+    <div class="vgrid" id="videos"></div>
+  </section>
+  <section class="band">
+    <h2>Siap menulis kode pertamamu?</h2>
+    <p>Tidak perlu pengalaman. Kirim pesan dan kami bantu pilih kelas yang cocok.</p>
+    <a class="btn primary" href="kontak.html">Gabung komunitas</a>
+  </section>
+</main>
+<script src="script.js"></script>
+</body>
+</html>

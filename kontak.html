@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kontak – AGAMUA CODE</title>
+<meta name="description" content="Hubungi AGAMUA CODE untuk bertanya soal kelas atau berkolaborasi.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-page="kontak">
+<main>
+  <div class="page-head"><h1>Kontak</h1><p class="lead">Ada pertanyaan soal kelas atau ingin berkolaborasi? Kirim pesan, kami balas maksimal 2 hari kerja.</p></div>
+  <section class="section">
+    <div class="two-col">
+      <ul class="contact" id="contact-info"></ul>
+      <form id="contact-form" novalidate>
+        <label>Nama<input name="name" required minlength="2" autocomplete="name"></label>
+        <label>Email<input name="email" type="email" required autocomplete="email"></label>
+        <label>Pesan<textarea name="message" rows="5" required minlength="10"></textarea></label>
+        <button class="btn primary" type="submit">Kirim pesan</button>
+        <p id="form-status" role="status"></p>
+      </form>
+    </div>
+  </section>
+</main>
+<script src="script.js"></script>
+</body>
+</html>
